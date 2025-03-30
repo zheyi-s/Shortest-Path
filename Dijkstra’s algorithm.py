@@ -8,33 +8,38 @@ def create_grid_with_obstacle(size=100):
     # Initialize the grid, all positions default to 0 (passable)
     grid = [[0 for _ in range(size)] for _ in range(size)]
 
-    while True:
-        # Prompt user to input obstacle position and size
-        print("Please enter the starting coordinates and size of the obstacle:")
-        try:
-            obstacle_x_start = int(input(f"Obstacle starting x coordinate (0-{size - 1}): "))  # Top-left x coordinate
-            obstacle_y_start = int(input(f"Obstacle starting y coordinate (0-{size - 1}): "))  # Top-left y coordinate
-            obstacle_width = int(input("Obstacle width (1-remaining space): "))  # Obstacle width
-            obstacle_height = int(input("Obstacle height (1-remaining space): "))  # Obstacle height
+    n = int(input("Please enter the number of obstacles:"))
 
-            # Validate if the obstacle fits within the grid and has a reasonable size
-            if (obstacle_x_start < 0 or obstacle_y_start < 0 or
-                    obstacle_x_start + obstacle_width > size or
-                    obstacle_y_start + obstacle_height > size or
-                    obstacle_width <= 0 or obstacle_height <= 0):
-                print(
-                    f"Obstacle coordinates or size invalid! Ensure coordinates are between 0-{size - 1}, and width/height are greater than 0 and fit within the remaining space.")
-                continue  # Invalid input, loop back to re-prompt
-            else:
-                break  # Valid input, exit the loop
-        except ValueError:
-            print("Invalid input! Please enter valid integers.")
-            continue  # Non-integer input, loop back to re-prompt
+    for i in range(n):
+        while True:
+            # Prompt user to input obstacle position and size
+            print("Please enter the starting coordinates and size of the obstacle:")
+            try:
+                obstacle_x_start = int(
+                    input(f"Obstacle starting x coordinate (0-{size - 1}): "))  # Top-left x coordinate
+                obstacle_y_start = int(
+                    input(f"Obstacle starting y coordinate (0-{size - 1}): "))  # Top-left y coordinate
+                obstacle_width = int(input("Obstacle width (1-remaining space): "))  # Obstacle width
+                obstacle_height = int(input("Obstacle height (1-remaining space): "))  # Obstacle height
 
-    # Mark the obstacle area in the grid as 1
-    for i in range(obstacle_y_start, obstacle_y_start + obstacle_height):
-        for j in range(obstacle_x_start, obstacle_x_start + obstacle_width):
-            grid[i][j] = 1
+                # Validate if the obstacle fits within the grid and has a reasonable size
+                if (obstacle_x_start < 0 or obstacle_y_start < 0 or
+                        obstacle_x_start + obstacle_width > size or
+                        obstacle_y_start + obstacle_height > size or
+                        obstacle_width <= 0 or obstacle_height <= 0):
+                    print(
+                        f"Obstacle coordinates or size invalid! Ensure coordinates are between 0-{size - 1}, and width/height are greater than 0 and fit within the remaining space.")
+                    continue  # Invalid input, loop back to re-prompt
+                else:
+                    break  # Valid input, exit the loop
+            except ValueError:
+                print("Invalid input! Please enter valid integers.")
+                continue  # Non-integer input, loop back to re-prompt
+
+        # Mark the obstacle area in the grid as 1
+        for i in range(obstacle_y_start, obstacle_y_start + obstacle_height):
+            for j in range(obstacle_x_start, obstacle_x_start + obstacle_width):
+                grid[i][j] = 1
 
     return grid
 
